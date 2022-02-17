@@ -1,0 +1,76 @@
+<div class="navigation">
+	<div class="logout-button" {{action "logout" on="click"}}>
+  	<img src="https://pbs.twimg.com/profile_images/378800000639740507/fc0aaad744734cd1dbc8aeb3d51f8729_400x400.jpeg" />
+  {{#link-to 'login'}}
+  <span>&nbsp;Log Out</span>
+  {{/link-to}}
+	</div>
+  
+  <button type="add" {{action "showModal" on="click"}}>Add Activity</button>
+</div>
+
+
+      {{#if showModal.value}}
+      <div class="container"> 
+        
+  <form id="contact">
+    <span class="close" aria-label="Close"></span>
+    <h3>Add Activity</h3>
+    <fieldset>
+      {{input type="text" placeholder="Activity Type" required=true name="type" value=type}}
+    </fieldset>
+    <fieldset>
+      {{input type="text" placeholder="Calories" required=true name="type" value=calories}}
+    </fieldset>
+    <fieldset>
+      {{input type="text" placeholder="Speed" required=true name="type" value=speed}}
+    </fieldset>
+    <fieldset>
+      {{input type="text" placeholder="Distance" required=true name="type" value=distance}}
+    </fieldset>
+    <fieldset>
+      {{input type="text" placeholder="Time" required=true name="type" value=time}}
+    </fieldset>
+    <fieldset>
+      <button name="submit" type="submit" {{action "addToMyDashboard" on="click"}}>Submit</button>
+    </fieldset>
+    <fieldset>
+      <button name="close" type="close" {{action "closeActivityModal" on="click"}}>Close</button>
+    </fieldset>
+    <p class="copyright">Designed by <p title="Run Tracker">Strava</p></p>
+  </form>
+</div>
+{{/if}}
+<div class="col-xs-12">
+      <div class="well">
+        <h4>My Current Activity</h4>
+        <p>Total hrs: {{format-time '2' 'Hours'}}</p>
+        {{#each this.currentActivity as |activity|}}
+        <span>Activity: {{activity.type}}</span>
+        <span>Calories: {{activity.calories}}</span>
+        <span>Distance: {{activity.distance}}</span>
+        <span>Time: {{activity.time}}</span>
+        <span>Speed: {{activity.speed}}</span>
+        {{#if activity.isShared}}
+        <span class="pointer" {{action "shareActivity" activity "unshare" on="click"}}><strong>Unshare</strong></span>
+        {{else}}
+        <span class="pointer"> {{action "shareActivity" activity "share" on="click"}}<span>Share</span></span>
+        {{/if}}
+        {{else}} Sorry no data found
+        {{/each}}
+      </div>
+        {{log model}} 
+        {{#each this.sharedStories as |activity|}}
+        {{#if activity.isShared}}
+      <div class="well">
+        <h4>{{activity.userName}} shared a story</h4>
+        <span>Activity: {{activity.type}}</span>
+        <span>Calories: {{activity.calories}}</span>
+        <span>Distance: {{activity.distance}}</span>
+        <span>Time: {{activity.time}}</span>
+        <span>Speed: {{activity.speed}}</span>
+      </div>
+        {{/if}}
+        {{/each}}
+      </div>
+{{outlet}}

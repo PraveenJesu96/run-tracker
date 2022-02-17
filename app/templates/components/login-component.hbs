@@ -1,0 +1,45 @@
+<div class="form">
+      
+      
+      <div class="tab-content">
+        <ul class="tab-group">
+        <li class="tab active" {{action "onSignupOrLogin" "signup" on="click"}}><a>Sign Up</a></li>
+        <li class="tab" {{action "onSignupOrLogin" "login" on="click"}}><a>Log In</a></li>
+      </ul>
+        {{#if selectedOption.value}}
+        <div id="contact">   
+          <h1>Welcome Back!</h1>
+          
+            <div class="field-wrap">
+
+            {{input type="email" placeholder="Email" required=true name="email" value=email}}
+          </div>
+          
+          <div class="field-wrap">
+            {{input type="password" placeholder="Password" required=true name="password" value=password}}
+          </div>
+          <div><button type="submit" class="button button-block" {{action "signIn"}}>Log In</button>
+          </div>
+          
+        </div>
+        {{else}}
+        <div id="contact">   
+          <h1>Sign Up for Free</h1>
+
+          <div class="field-wrap">
+            {{input type="email" placeholder="Username" required=true name="email" value=email}}
+          </div>
+          
+          <div class="field-wrap">
+            {{input type="password" placeholder="Password" required=true name="password" value=password}}
+          </div>
+          
+          <div><button type="submit" class="button button-block" {{action "createAccount"}}>Get Started</button></div>
+
+        </div>
+        {{/if}}
+        
+      </div>
+      
+</div>
+{{yield}}
